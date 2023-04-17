@@ -1,0 +1,1148 @@
+.no-preventa {
+	background: #ececec;
+	display: table;
+	padding: 15px 23px;
+	border-radius: 3px;
+	margin:0 auto;
+	
+}
+
+.no-preventa h3 {
+	font-weight: 500;
+	color: darkgrey;
+	font-size: 16px;
+}
+
+.no-preventa h3 i {
+	color: #b5121d;
+	margin-right:10px;
+}
+.more-theatres {
+    background: #b5121d;
+    color: #fff;
+    margin: 0 auto;
+    display: block;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 42px;
+    margin-top: 15px;
+    text-transform: uppercase;
+    font-size: 16px;
+    -webkit-transition: all 200ms linear;
+    -moz-transition: all 200ms linear;
+    -ms-transition: all 200ms linear;
+    -o-transition: all 200ms linear;
+    transition: all 200ms linear;
+}
+.no_movie_found {
+	text-align: center;
+    font-size: 14px;
+    border: 1px solid grey;
+    background-color: white;
+    margin: 20pz;
+    margin: 35px;
+    padding: 20px;
+		background: whitesmoke;
+		font-size: 14px;
+    font-weight: 400;
+    color: #4d4d4d;
+}
+
+#sidebar {
+     height: auto;
+     float: left;
+     margin-top: -136px;
+     padding: 0;
+     background: inherit;
+}
+
+.movie-img-small {
+     width: 100%;
+     height: 410px;
+     display: table;
+}
+
+.movie-img-youtube {
+     width: 100%;
+     height: 100%;
+     display: table;
+}
+
+.movie-trailer {
+     width: 100%;
+     height: 100%;
+     display: table;
+}
+
+.movie-trailer {
+     background-repeat: no-repeat;
+     background-position: center;
+     background-size: cover;
+}
+.movie-trailer .grid-center-content-vertical {
+     height: 100%;
+}
+.movie-trailer .container-max-width {
+     /*position: relative;*/
+}
+.movie-trailer .container-max-width .row.movie-trailer-content {
+     width: 100%;
+     max-width: 1170px;
+     position: absolute;
+     bottom: 60px;
+}
+.play-container {
+     text-align: center;
+     padding-top: 11%;
+     position:relative;
+}
+.icon-play {
+     background: url(https://cinemarkcl.modyocdn.com/uploads/0d685980-ab56-4f3c-b1da-027803e37e23/original/play-button-01.svg) no-repeat;
+     font-size: 44px;
+     border: 0;
+     position: absolute;
+     z-index: 1;
+     left: 0;
+     right: 0;
+     margin-left: auto;
+     margin-right: auto;
+     width: 95px;
+     height: 95px;
+     display: inherit;
+}
+.icon-play:before {
+     display:none;
+}
+
+.icon-play:hover {
+     color: #fff;
+     text-decoration: none;
+}
+
+
+.icon-play.icon-play-responsive {
+     display: none;
+}
+.movie-trailer h1 {
+     color: #fff;
+     font-family: 'Roboto Condensed', sans-serif;
+     font-size: 30px;
+     margin-top: 0;
+		padding-right:5px;
+}
+.movie-cover-container {
+     padding-top: 143%;
+     width: 100%;
+     position: relative;
+     background-image: url(https://cinemarkcl.modyocdn.com/uploads/e8f66c23-6bd8-45d4-a79c-668b33fe165a/original/default_cartelera_.jpg);
+     background-repeat: no-repeat;
+     background-size: cover;
+}
+.movie-cover {
+     padding-top: 143%;
+     width: 100%;
+     height: 100%;
+     background-size: cover;
+     background-position: center center;
+     position: absolute;
+     top: 0;
+     left: 0;
+}
+.background-dark {
+     position: relative;
+     top: 0;
+     left: 0;
+     background: rgba(0, 0, 0, 0.3);
+     width: 100%;
+     height: 410px;
+     opacity: 1;
+}
+.billboard-days {
+     width: 100%;
+     margin-top: 20px;
+     overflow-x: scroll;
+     white-space: nowrap;
+     display: inline-block;
+		 padding-bottom:15px;
+}
+ul.billboard-days li {
+     float: none;
+     display: inline-block;
+     padding: 0;
+     min-width: 14%;
+}
+ul.billboard-days button {
+     background: transparent;
+     border: none;
+     width: 100%;
+     border-bottom: 2px #a6a6a6 solid;
+     min-height: 70px;
+     border-bottom: 6px transparent solid;
+     border-radius: 0;
+}
+ul.billboard-days button{
+     border-bottom: 4px #c0c0c0 solid;
+     transition: 0.3s;
+}
+ul.billboard-days button.active {
+     border-bottom: 4px #b70c11 solid;
+     transition: 0.3s;
+}
+ul.billboard-days h3 {
+     color: #a6a6a6;
+     text-transform: uppercase;
+     text-align: center;
+     width: 100%;
+     padding: 0;
+     margin: 0;
+     font-weight: 500;
+     font-size: 20px;
+     margin-bottom: 4px;
+}
+ul.billboard-days button.active h3 {
+     color: #b5121c;
+}
+ul.billboard-days h5 {
+     color: #a6a6a6;
+     font-size: 12px;
+     width: 100%;
+     text-align: center;
+     font-weight: 500;
+     margin: 10px 0;
+}
+ul.billboard-days button.active h5 {
+     color: #b5121c;
+}
+.change-theatres {
+     text-align: right;
+     position: relative;
+     margin-top: 15px;
+}
+.movie-times {
+     float: left;
+     position: relative;
+     padding: 0 40px 25px;
+}
+
+.movie-times .btn-buy {
+  margin-bottom: 5px;
+  background-color: #fff;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #e5e5e5;
+  color: #4d4d4d;
+  border-radius: 4px;
+  font-weight: 400;
+  font-size: 12px;
+  padding: 4px 23px;
+  position: relative;
+}
+
+.movie-times .btn-buy:not([disabled]):hover,
+.movie-times .btn-buy:not([disabled]):active,
+.movie-times .btn-buy:not([disabled]).active {
+  background-color: #b5121c;
+  border: 1px solid #b5121c;
+  color: #fff;
+}
+
+.movie-times .btn-buy:disabled {
+  background: #ececec;
+  border-color: #dddddd;
+	color: #4B4F57;
+}
+
+.movie-times .btn-buy:disabled:after {
+  content: "Función agotada";
+  position: absolute;
+  bottom: calc(1.2rem - 30px);
+  left: 0;
+  width: 100%;
+  height: 12px;
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #4B4F57;
+}
+
+@media (min-width:768px) {
+	.movie-times .btn-buy:not([disabled]):hover {
+    background-color: #b5121c;
+    border: 1px solid #b5121c;
+    color: #fff;
+	}
+}
+
+span.legal {
+     display: block;
+     font-size: 12px;
+     color: #a1a1a1;
+     margin: 20px 0 25px;
+}
+.box-movie-format {
+     -webkit-transition: all 300ms linear;
+     -moz-transition: all 300ms linear;
+     -ms-transition: all 300ms linear;
+     -o-transition: all 300ms linear;
+     transition: all 300ms linear;
+     border: 1px solid #bfbfbf;
+     margin: 1em 0;
+     overflow: hidden;
+     font-family: 'Roboto Condensed', sans-serif;
+     opacity: 1;
+}
+
+p.different-theatre {
+     font-size: 10px;
+     color: #fff;
+}
+
+
+.box-movie-format.movie-box-animation {
+     opacity: 0;
+}
+/*.movie-format > div {
+    display: inline-block;
+}
+.movie-format {
+    border-bottom: 1px solid #dcdcdc;
+    padding: 5px 40px;
+}*/
+.theatre-name {
+     margin: 30px 0 20px;
+}
+.theatre-name h3 {
+     text-transform: uppercase;
+     font-weight: 400;
+     font-size: 18px;
+     color: #b5121c;
+     margin: 0;
+}
+.theatre-name h4 {
+     font-size: 14px;
+     font-weight: 400;
+     color: #4d4d4d;
+}
+.change-theatres select {
+     -moz-appearance: none;
+     -webkit-appearance: none;
+     height: 44px;
+     color: #7f7f7f;
+     text-indent: 10px;
+     font-size: 14px;
+     text-transform: uppercase;
+     font-family: 'Roboto Condensed', sans-serif;
+}
+.change-theatres:after {
+     content: "\f107";
+     font-family: FontAwesome;
+     color: #b5121c;
+     position: absolute;
+     font-size: 20px;
+     right: 15px;
+     top:12px;
+}
+.movie-details ul li {
+     padding: 3px 10px 2px;
+     border-radius: 4px;
+     background: transparent;
+     display: inline-block;
+     color: #fff;
+     font-size: 13px;
+     border:1px solid #fff;
+     margin-right: 5px;
+}
+.movie-details ul li.rating {
+     background: #C74A03;
+		 border-color: #C74A03;
+     color: #fff;
+     position: relative;
+     text-transform: uppercase;
+		 border-radius: 4px;
+}
+.movie-details ul li.rating span {
+     display: none;
+     position: absolute;
+     top: 29px;
+     left: 0;
+     background: #333;
+     width: 155px;
+     z-index: 999999999;
+     color: #fff;
+     font-size: 11px;
+     text-transform: uppercase;
+     text-align: center;
+     padding: 5px 6px;
+     margin: 0;
+     border-radius: 4px;
+     opacity: .8;
+}
+.movie-details ul li.rating:hover span {
+     display: block;
+}
+.movie-info div {
+     margin: 20px 0 0;
+	width: 100%;
+}
+.movie-info h2 {
+     text-transform: uppercase;
+     font-weight: 400;
+     font-size: 16px;
+     color: #b5121c;
+     margin: 0;
+     border-bottom: 1px solid #cecece;
+     padding-bottom: 5px;
+     margin-bottom: 5px;
+}
+.movie-info p {
+     line-height:22px;
+     font-weight: 400;
+     font-size: 14px;
+     color: #8a8a8a;
+}
+.movie-info .reparto p {
+     line-height: 22px;
+     float: left;
+			margin: 0;
+     margin-right: 5px;
+}
+.movie-info .reparto p:last-child span {
+	display: none;
+}
+.home-default-container {
+}
+.movie-seats {
+	border-left: 1px solid #d1d1d1;
+	margin-left: 10px;
+	padding-left: 10px;
+	padding-top: 10px;
+}
+.movie-seats ul,
+.movie-seats li {
+     display: inline;
+}
+
+.movie-info .reparto {
+     display:table;
+}
+
+
+/*MODAL TRAILER*/
+
+
+#modalMovie {
+     width: 1100px;
+     margin: 0 auto;
+     position: fixed;
+     margin-left: auto;
+     margin-right: auto;
+     left: 0;
+     right: 0;
+     background: #000;
+     top: 16px;
+}
+
+
+
+#modalMovie h2 {
+     color: #fff;
+}
+
+#modalMovie h2 i {
+     color: #e00201;
+     margin-right: 14px;
+}
+
+#modalMovie .modal-footer {
+     background: #000;
+     border: none !important;
+     border-top: 0 !important;
+     box-shadow: none;
+}*
+
+
+ .modal.fade {
+      top:-100%;
+ }
+
+
+#modalMovie .modal-header {
+     padding: 17px 28px;
+     border-bottom: 1px solid #eee3;
+     position:relative;
+}
+
+
+#modalMovie .modal-body {
+     position: relative;
+     max-height: 450px;
+     padding: 0px;
+     overflow-y: initial;
+}
+
+
+.btn-modal {
+     border-radius: 0;
+     text-transform: uppercase;
+     font-weight: 600;
+     position: absolute;
+     right: 10px;
+     top: 24%;
+     padding: 6px 10px;
+     background: transparent;
+     font-size: 30px;
+     color; #fff;
+     opacity: .8;
+}
+.btn-modal:hover,
+.btn-modal:active,
+.btn-modal:focus {
+     background-color: transparent;
+     -webkit-box-shadow: 0px 11px 25px -4px rgba(228,0,1,0);
+     -moz-box-shadow: 0px 11px 25px -4px rgba(228,0,1,0);
+     box-shadow: 0px 11px 25px -4px rgba(228,0,1,0);
+     opacity: 1;
+}
+
+/* MODAL RESTRICCION */
+
+.modal-content.restriccion {
+    background: #fff;
+    border-radius: 5px;
+    padding: 3em;
+}
+
+.modal-content.restriccion .modal-header {
+    padding: 0 !important;
+}
+
+.modal-content.restriccion .modal-header .modal-title {
+    color: #b5121c;
+    text-transform: uppercase;
+    border-bottom: 1px solid #CACACA;
+    padding-bottom: 12px;
+}
+
+.restriction-html strong {
+    border-radius: 3px;
+    display: table;
+    margin-bottom: 1em;
+}
+
+.restriction-html ul {
+    background: #eee;
+    padding: 2em;
+		border-radius: 3px;
+}
+
+.modal-content.restriccion .restriction-html {
+    display: table;
+		width:100%;
+}
+
+.modal-footer.closing {
+    background: #fff !important;
+    padding: 0;
+}
+
+.restriction-html ul li {
+	position:relative;
+	margin-bottom:10px;
+}
+
+.restriction-html ul li:before {
+	content: '';
+	background: url(https://cinemarkcl.modyocdn.com/uploads/af37a642-8e03-4d62-adc6-2659b462221f/original/lipoint_Mesa_de_trabajo_1.svg) no-repeat;
+	position: absolute;
+	width: 7px;
+	height: 7px;
+	left: -13px;
+	top: 7px;
+	background-size: contain;
+}
+
+li.restriccion-btn {
+    border: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+li.restriccion-btn .button-restriction-container button {
+    background: #b70c11;
+    border: 0;
+    padding: 3px 10px 4px;
+    border-radius: 4px;
+    font-size: 13px;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.movie-details {
+    position: relative;
+    z-index: 10;
+}
+
+/* COLLAPSE INFO */
+
+input[type=checkbox] {
+     display:none;
+}
+
+label {
+     -webkit-appearance: none;
+     -moz-appearance: button;
+     display: inline-block;
+     cursor: pointer;
+     border-radius: 0;
+     padding: 3px 22px;
+     border: 1px solid #ddd;
+     font-family: 'Roboto Condensed', sans-serif;
+     color: #8a8a8a;
+     margin-top: 15px;ACR
+}
+
+/* Default State Sinopsis */
+.expand-text {
+     max-height: 40px;
+     transition: max-height 0.5s;
+     overflow:hidden;
+     margin:0 !important;
+}
+
+/* Toggled State sinopsis */
+input[type=checkbox]:checked ~ .expand-text {
+     max-height: 999px;
+     transition: max-height 0.9s;
+}
+
+
+input[type=checkbox]:checked ~ label:after {
+     content: 'VER MENOS';
+}
+
+input[type=checkbox]:not(:checked) ~ label:after {
+     content: 'MÁS INFORMACIÓN';
+}
+
+
+
+/* Default State Sidebar info */
+.expand-info {
+     max-height: 999px;
+     transition: max-height 0.5s;
+     overflow:hidden;
+
+}
+
+/* Toggled State Sidebar info */
+input[type=checkbox]:checked ~ .expand-info {
+     max-height: 999px;
+     transition: max-height 0.9s;
+}
+
+
+label.button-expand-info {
+     width: 100%;
+     text-align: center;
+     padding: 12px;
+     font-size:17px;
+     display:none;
+}
+
+label.button-expand-sinopsis {
+     display:block;
+     text-align:center;
+}
+
+.movie-times .btn-buy:focus {
+     outline: 0;
+}
+
+
+.selected-session {
+     background: rgba(0, 0, 0, .9);
+     color: #fff;
+     position: fixed;
+     bottom: -217px;
+     left: 0;
+     z-index: 9999999;
+     width: 100%;
+     transition:0.3s;
+     border-radius: 0;
+}
+
+.selected-session.active {
+     height: auto;
+     padding: 2em 0;
+     bottom:0;
+     transition:0.3s;
+
+}
+
+.ssTitle {
+     border-right: 1px solid #686868;
+}
+
+.ssTitle h2 {
+     color: #fff;
+     text-transform: uppercase;
+     font-weight: 400;
+     margin:0;
+     font-size:25px;
+}
+
+.ssTitle h3 {
+     color: #fff;
+     font-weight: 400;
+     font-size: 13px;
+     text-transform: uppercase;
+     margin: 5px 0 15px;
+}
+.ssDate {
+     padding-left: 10px;
+}
+.ssDate .hour {
+     color: #fff;
+     display: inline-block;
+     margin-top: 0px;
+     margin-bottom: 5px;
+     margin-right: 10px;
+     border: 1px solid #e5e5e5;
+     border-radius: 4px;
+     font-weight: 400;
+     font-size: 12px;
+     padding: 4px 23px;
+}
+
+.ssDate .day {
+     color: #fff;
+     font-size: 16px;
+     font-weight: 500;
+}
+
+
+.ssButtons a {
+     width: 100%;
+     display: block;
+     margin-bottom:10px;
+}
+
+.ssButtons button {
+     display: block;
+     width: 100%;
+}
+
+.ssButtons {
+     display: table;
+     width: 100%;
+     text-align: center;
+}
+
+
+.ssTitleFormat > div {
+     display: inline-block;
+}
+
+.ss-movie-lenguaje span {
+     display: -webkit-inline-box;
+     background: #c6c6c6;
+     color: #333;
+     padding: 7px 8px 7px;
+     text-transform: uppercase;
+     font-size: 11px;
+     font-weight: 600;
+     border-radius: 4px;
+     margin-right: 10px;
+}
+
+.cta-buy {
+     color: rgb(255, 255, 255);
+     font-size: 14px;
+     font-family: "Roboto Condensed", sans-serif;
+     font-weight: 500;
+     text-align: center;
+     width: 100%;
+     background: rgb(181, 18, 28);
+     border-width: 0px;
+     border-style: initial;
+     border-color: initial;
+     border-image: initial;
+     border-radius: 3px;
+     padding: 10px;
+     text-decoration:none;
+     text-shadow: none;
+     text-transform: uppercase;
+}
+
+.cta-close {
+     font-size: 14px;
+     font-family: "Roboto Condensed", sans-serif;
+     font-weight: 500;
+     text-align: center;
+     width: 100%;
+     border-width: 0;
+     border-style: initial;
+     border-color: initial;
+     border-image: initial;
+     border-radius: 3px;
+     padding: 10px;
+     text-decoration:none;
+     text-shadow: none;
+     text-transform: uppercase;
+}
+
+
+/*** Nearest ***/
+.nearestWrap {
+     margin-bottom: 20px;
+     display: table;
+     width: 100%;
+}
+
+h2.nearest-title {
+     font-weight: 400;
+     text-transform: uppercase;
+     font-size: 25px;
+     margin: 30px 0 10px;
+}
+
+.nearest-billboard {
+     background: whitesmoke;
+     padding: 0 20px;
+}
+
+.nearest-theatre-title {
+     margin: 20px 0;
+}
+
+.nearest-theatre-title h4 {
+     text-transform: uppercase;
+     font-weight: 400;
+     font-size: 18px;
+     color: #b5121c;
+     margin: 0px 0 10px;
+}
+
+.nearest-theatre-title h5 {
+     font-size: 14px;
+     font-weight: 400;
+     color: #4d4d4d;
+}
+
+.nearestWrap .box-movie-format button {
+     background: transparent;
+     border: 1px solid #bfbfbf;
+}
+
+
+/* Restriction */
+.box-icon-restriction {
+    float: left;
+    display: table-cell;
+    max-width: 10%;
+    border-right: 1px solid #cacaca;
+    padding: 1em;
+    margin-right: 23px;
+}
+
+
+ul.restriction-messages {
+     width: 100%;
+     display: block;
+     margin-top: 18px;
+}
+
+.restriction-messages li {
+		background: #eee;
+    width: 100%;
+    display: table;
+    padding: 8px 8px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.restriction-messages li:last-child{
+     margin-bottom: 0;
+}
+
+.restriction-messages li div > *{
+		color: #7b7b7b;
+    margin: 0;
+    font-size: 13px;
+}
+
+@media (min-width: 768px) {
+     .movie-info.movie-info-coming-soon {
+          padding: 0 50px;
+     }
+	
+}
+
+
+@media (max-width: 1200px){
+     #modalMovie {
+          width: calc(100% - 20px);
+     }
+
+}
+@media (max-width: 992px) {
+     .ssButtons {
+          margin-top: 20px;
+     }
+}
+@media (max-width: 819px){
+     #modalMovie iframe {
+          height: 300px;
+     }
+     #modalMovie .modal-body {
+          min-height:auto;
+     }
+}
+
+
+@media (max-width: 768px) {
+	.icon-play.icon-play-responsive {
+		display: inherit;
+		width: 70px;
+	}
+	.ssTitle {
+		border: none;
+		border-bottom: 1px solid #686868;
+		padding-bottom: 1em;
+	}
+	.ssDate {
+		padding: 1em 0;
+	}
+	.movie-cover-container {
+		padding-top: 51%;
+		width: 100%;
+	}
+	.movie-img-small {
+		height: 170px;
+	}
+	label.button-expand-sinopsis {
+		display:none;
+	}
+
+	label.button-expand-info {
+		display:block;
+		margin-top:11em;
+	}
+
+	.expand-text {
+		max-height: 999px;
+	}
+
+	.expand-info {
+		max-height: 0px;
+	}
+	.box-icon-restriction {
+		float: none;
+		display: block;
+		max-width: 100%;
+		border-right: none;
+		padding: 0;
+		margin-right: 0;
+		margin: 0 auto;
+		margin-bottom: 10px;
+		border-bottom: 1px solid #cacaca;
+		padding-bottom: 10px;
+	}
+
+	.box-icon-restriction img {
+		max-width: 50px;
+		margin: 0 auto !important;
+		display: block;
+	}
+
+	.restriction-html {
+		padding: 1em;
+	}
+
+	.modal-content.restriccion {
+		padding:1em;
+	}
+
+	.modal-content.restriccion .modal-header .modal-title {
+		margin: 0 !important;
+	}
+	.modal-content.restriccion .modal-header {
+		padding-left: 1em !important;
+		margin: 0 !important;
+	}
+}
+
+.movie-lenguaje span, .movie-version span {
+	background: #4B4F57;
+}
+
+@media (max-width:767px){
+	label.button-expand-info {
+		display:block;
+		margin-top:2em;
+	}
+	.movie-cover-container {
+		padding-top: 44%;
+		width: 31%;
+	}
+}
+
+
+@media (max-width:667px){
+     #modalMovie h2 {
+          font-size: 16px;
+     }
+     #modalMovie iframe {
+          height: 240px;
+     }
+
+     #modalMovie .modal-body {
+          min-height:auto;
+     }
+			.movie-cover-container {
+				padding-top: 32%;
+				width: 24%;
+			}
+			.icon-play {
+				width:65px;
+				height:65px;
+			}
+
+     .ssTitle h2 {
+          font-size:22px;
+     }
+     .ssTitle h3 {
+          font-size:13px;
+     }
+     .ssDate .day {
+          font-size: 14px;
+     }
+		.background-dark {
+			height: 314px;
+		}
+}
+
+@media (max-width: 568px){
+	.background-dark {
+			height: 295px;
+	}
+	.icon-play {
+		width:65px;
+		height:65px;
+	}
+}
+@media (max-width: 560px) {
+     .change-theatres {
+          text-align: center;
+          margin-top: 20px;
+     }
+     .change-theatres select {
+          width: 100%;
+     }
+     .movie-schedule.col-lg-12,
+     #movie-show-container.col-xs-12 {
+          padding-left: 0;
+          padding-right: 0;
+     }
+     span.legal {
+          margin: 10px 0 10px;
+     }
+     .movie-times {
+          padding: 0 10px 10px;
+     }
+     .movie-format {
+          padding: 5px 10px;
+     }
+     .movie-trailer h1 {
+          font-size: 24px;
+          margin-top: 0;
+          margin-bottom: 10px;
+          line-height: 1;
+          max-height: 49px;
+          color: #404040;
+          overflow: hidden;
+     }
+     #sidebar {
+          margin-top: -60px;
+     }
+     .movie-trailer .grid-center-content-vertical,
+     .background-dark {
+          height: 100%;
+     }
+     .movie-trailer .container-max-width .row.movie-trailer-content {
+          top: 182px;
+     }
+     .movie-trailer-content .col-xs-8 {
+          padding:0;
+          padding-left: 15px;
+          padding-right: 15px;
+     }
+     .movie-details ul li {
+          color: #8a8a8a;
+          border: 1px solid #8a8a8a;
+     }
+
+}
+@media (max-width:480px) {
+     .nearest-billboard {
+          padding: 0;
+          margin-top: 20px;
+     }
+     .nearest-billboard .container-max-width {
+          padding: 0 10px;
+     }
+     h2.nearest-title {
+          margin-top: 25px;
+			 		font-size:20px;
+     }
+	
+			.movie-cover-container {
+				padding-top: 44%;
+				width: 35%;
+		}
+}
+@media (max-width:375px){
+     #modalMovie h2 {
+          font-size: 16px;
+     }
+
+     #modalMovie iframe {
+          height: 130px;
+     }
+
+     #modalMovie .modal-body {
+          min-height:auto;
+     }
+     .movie-cover-container {
+          margin-bottom: 30px;
+     }
+			label.button-expand-info {
+					margin-top: 3em;
+					font-size:15px;
+			}
+			.button-restriction-container {
+				margin-top: 7px;
+		}
+
+			.movie-seats {
+			border-left: none !important;
+			margin-left: 0px !important;
+			padding-left: 0px !important;
+			padding-top: 10px;
+		}
+	.nearest-billboard .col-xs-12.col-sm-12.col-md-12.col-lg-12 {
+    padding: 0;
+}
+}
+
+@media (max-width:320px){
+			label.button-expand-info {
+					margin-top: 3em;
+					font-size:15px;
+			}
+			.button-restriction-container {
+				margin-top: 7px;
+		}
+}

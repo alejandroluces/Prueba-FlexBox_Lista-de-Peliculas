@@ -1,0 +1,324 @@
+*,
+*::after,
+*::before{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+}
+
+.header {
+    display: flex;
+    background-color: black;
+    color: white;
+    max-width: 100%;
+    
+}
+.header a{
+    color: #ffffff;
+      text-shadow: 2px 2px 4px #000000;
+}
+
+
+/* Logo de cabecera ambos index */
+.logo2{
+    height: 110px;
+    border-radius: 50%;
+    margin-right: 60px;
+}
+
+span{
+    text-decoration: solid;
+    
+
+}
+/* Estilo al input */
+input {
+    max-width: 190px;
+    height: 44px;
+    background-color: #05060f0a;
+    border-radius: .5rem;
+    padding: 0 1rem;
+    border: 2px solid coral;
+    font-size: 1rem;
+    margin-bottom: 12px;
+    transition: border-color .3s cubic-bezier(.25,.01,.25,1) 0s, color .3s cubic-bezier(.25,.01,.25,1) 0s,background .2s cubic-bezier(.25,.01,.25,1) 0s;
+  }
+  
+    
+  
+  /* Estilo al Buton */
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    cursor: pointer;
+    width: 150px;
+    height: 50px;
+    background-image: linear-gradient(to top, #D8D9DB 0%, #fff 80%, #FDFDFD 100%);
+    border-radius: 30px;
+    border: 1px solid #8F9092;
+    transition: all 0.2s ease;
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #606060;
+    text-shadow: 0 1px #fff;
+  }
+  
+  button:hover {
+    box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 3px 3px #CECFD1;
+  }
+  
+  button:active {
+    box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
+  }
+  
+  button:focus {
+    box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
+  }
+  /************************ Fin Estilo al Buton */
+  
+  
+  
+
+/* Modificando la fuente */
+.header{
+    padding: 10px;
+    width: 100%;
+    font-style: italic;
+    font-size: 50px;
+    left: 100px;
+    
+
+}
+.container{
+    
+    margin: 0;
+    display: flex;
+    min-height: 80vh;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+
+.item{
+    color: #ffffff;
+    text-shadow: 2px 2px 4px #000000;
+    font-size: 35px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    max-width: 100%;
+    max-height: 100%;
+    padding: 55px;
+    align-items: center;
+    box-shadow: 0px 5px 15px 0px rgba(225, 13, 13, 0.5);
+   
+    
+    
+}
+
+.body-1{
+    
+    background-image: url(/image/img/alucesF\ \(2\).png);
+    
+    max-height: 110vh;
+    overflow: hidden;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    
+    
+}
+/* Aqui termina Primer HTML ***********************************/
+
+
+
+
+
+
+/* Aqui comienza maquetacion del segun HTML ******************/
+
+/* NAVEGACION */
+.navegacion{
+    max-width: 100%;
+    text-align: center;
+    margin: 20px;
+    text-decoration: none;
+    font-size: 19px;
+    color: #ffffff;
+      text-shadow: 2px 2px 4px #000000;
+    
+}
+
+
+
+@media   (max-width: 980px) {
+    .navegacion{   
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        
+        
+    }
+  
+}
+
+@media (max-width: 980px) {
+    .styloNav {
+        display: block;
+        text-align: center;
+    }
+    
+    
+     
+}
+
+a{
+    margin: 20px;
+    transition: background-color .1s;
+    text-decoration: none;
+      
+}
+  
+  .styloNav:hover {
+    background-color: gold;
+    color: black;
+
+  }
+  .styloNav{
+    color: #FDFDFD;
+  }
+
+  /* FIN NAVEGACION */
+
+
+
+/* IMAGEN DE FONDO */
+.body-2{
+    background-image: url(/image/img/alucesF\ \(2\).png);
+    
+
+}
+
+
+
+/* CABECERA */
+.header-1 {
+    
+    background-color: black;
+    color: white;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 35px;
+    font-style: italic;
+    font-size: 60px;
+    
+    
+}
+
+/* CONTENEDOR DE TODAS LAS IMG PELICULAS */
+
+.container-1{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+
+}
+
+.ajustandoim{
+    
+     max-width: 100%; 
+     padding: 10px; 
+     transform: scale(0.90);
+     cursor: pointer;
+     
+}
+.ajusta-img{
+    border: coral solid 2px;
+    margin: 5px;
+    
+}
+.ajusta-img:hover{
+    transform:scale(1.1);
+
+}
+
+.ajustandoimg:active{
+    -webkit-transform:scale(1.04);transform:scale(1.04);
+   
+}
+
+/* PIE DE PAGINA */
+.footer{
+    display: flex;
+    flex-flow: row wrap;
+    max-width: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(10, 9, 9);
+  
+}
+
+.imgf1{
+    margin-left: 90px;
+    margin-right: 100px;
+    margin-top: 5px;
+    width: auto;
+    max-width: 100%;
+    
+}
+/* icono redes sociales footer */
+
+.logoft2{
+    height: 70px;
+    border-radius: 50%;
+    margin-right: 100px;
+    cursor: pointer;
+    max-width: 100%;
+    
+
+}
+
+
+
+
+    
+@media (max-width: 768px) {
+    .footer{
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+    
+       
+    
+    }
+    
+        
+}
+@media (max-width: 768px) {
+    .logoft2 {  
+        margin-right: 20px;
+    }
+     
+}
+
+
+
+
+
+
+
+
+

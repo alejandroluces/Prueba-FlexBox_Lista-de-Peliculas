@@ -1,0 +1,582 @@
+var tipo_cliente = '';
+
+	tipo_cliente = 'No Logueado';
+
+
+new Vue({
+     delimiters: ['${', '}'],
+     el: '#page-movie',
+     mixins: [mixinUrl, mixinDate, mixinPresale, mixinUtilities, mixinCache],
+     data: {
+          days: [],
+          selectedDay: null,
+          selectedMovie: null,
+          urlSettings: {
+               tag: '',
+               corporate_film_id: '',
+               coming_soon: false
+          },
+          versions: ['3D', 'XD', 'IMAX'],
+          languages: ['Sub', 'Dob', 'CAS'],
+          seats: ['DBOX', 'PR'],
+          selectedSession: undefined,
+          selectedMovieMoreInfo: undefined,
+          theatre: undefined,
+          youtubeBackgroundImg: undefined,
+          selectedMovieImg: undefined,
+          selectedMovieImgLarge: undefined,
+          showIframe: false,
+          loading: true,
+          loadMoviesMessage: 'Cargando Películas',
+			 		
+          limit_nearest: 4,
+          otherTheaters: [],
+			 		moreOtherTheaters:[],
+          nearestBillboards: [],
+			 		moreNearestBillboards: [],
+          selectedNearestBillboard: undefined,
+          restrictionMessages: undefined,
+          restrictionPost: undefined,
+			 		selectedMoreOtherTheaters: false,
+          modalSelected: 'youtube',
+			    no_movie : false,
+					selectedDayNoMovie: undefined,
+					jsonld: {
+						"@context": "http://schema.org",
+						"@type": "Movie",
+						"actor": [],
+						"description": "",
+						"director": [],
+						"name": "",
+						"image": "",
+					}
+     },
+     components: {
+          'load-component': loadComponent,
+          'alert-component': alertComponent
+     },
+     watch: {
+          // property in mixinCache true when all theatres were loaded
+          loaded_theaters: {
+               handler: function (val, oldVal) {
+                    this.setCurrentTheatre(this.urlSettings.tag);
+                    if(this.currentTheatre) {
+                         this.theatre = this.currentTheatre;
+                    } 
+               }
+          },
+          nearestTheatres: {
+               handler: function (val, oldVal) {
+                    this.otherTheaters = this.nearestTheatres.slice(0, this.limit_nearest);
+								 		this.moreOtherTheaters = this.nearestTheatres.slice(this.limit_nearest, this.nearestTheatres.length-1);
+                    this.getParams();
+               }
+          },
+			 		
+          selectedMovie: function () {
+               var self = this;
+               this.checkYoutubeImg(this.selectedMovie.youtubeUrlMaxDefault, function (urlMax) {
+                    if(urlMax) {
+                         self.youtubeBackgroundImg = urlMax;
+                    } else {
+                         self.checkYoutubeImg(self.selectedMovie.youtubeUrlSdDefault, function (urlMed) {
+                              if(urlMed){
+                                   self.youtubeBackgroundImg = urlMed;
+                              } else {
+                                   self.checkYoutubeImg(self.selectedMovie.img, function (cover) {
+                                        if(cover){
+                                             self.youtubeBackgroundImg = cover;
+                                        } else {
+                                             self.youtubeBackgroundImg = 'https://cinemarkla.modyocdn.com/uploads/0ee1dbde-03ae-4225-86c1-57eea4448378/original/default_cartelera_.jpg';
+                                        }
+                                   });
+                              }
+                         });
+                    }
+               });
+               this.selectedMovieImg = this.getImgCdnPath(this.selectedMovie.corporate_film_id);
+               this.selectedMovieImgLarge = this.getImgCdnPathLarge(this.selectedMovie.corporate_film_id);
+               this.getRestrictionMessages();
+               this.getRestrictionPost();
+								
+							// todo -> mixinUtilities pushDataLayer
+							window.dataLayer.push({ 
+									'event': 'pagina-virtual',  
+									'page': '/pelicula',  
+									'pagename': 'Detalle Pelicula',   
+									'cine-seleccionado': this.theatre.id,
+									'tipo-cliente': tipo_cliente, 
+									'userID': "",
+								  'pelicula':  this.selectedMovie.title,   
+									'estado': this.urlSettings.coming_soon?'Proximamente':this.calculatePresale(this.selectedMovie)?'Pre venta':'En cartelera',
+									'ecommerce': { 
+										'detail': {
+											'actionField': {
+												'list': document.referrer }, 
+											'products': [{
+												'name': this.selectedMovie.title, 
+												'price': 'No aplica', 
+												'category': 'Sin info', 
+												'variant': ''
+												}] 
+										}
+									}
+							});
+          },
+			 selectedDay: function () {
+				 this.selectNearest();
+			 },
+			 selectedDayNoMovie: function () {
+				 this.selectNearestNoMovie();
+			 },
+			 nearestBillboards: function () {
+				 if (this.no_movie 
+						 && this.nearestBillboards.length > 0 
+						 && this.nearestBillboards[0].length > 0) {
+					 this.selectedDayNoMovie = this.nearestBillboards[0][0];
+				 }else this.selectNearest();
+			 }
+     },
+     mounted: function () {
+			console.log("[movie]");
+			this.getInCache('theatres_by_cities');
+			this.theatreTag = this.getTheatreTag();
+		},
+     methods: {
+			 	checkAvailableSeats: function (session) {
+					return !Number(session.seats_available);
+				},
+			  showMoreOtherTheaters: function(){
+							this.selectedMoreOtherTheaters = true;
+				 			this.nearestBillboards = this.nearestBillboards.concat(this.moreNearestBillboards);
+				},
+       /*** Get ***/ 
+			 loadMovies: function(){
+               // loading billboard currentTheatre
+						this.getMovies(this.urlSettings.tag, false, function (response) {
+							this.days = this.orderMovies(response, false, this.theatre);
+							if (this.days.length > 0){
+								this.selectedDay = this.days[0];
+							}
+							this.getMovie(this.urlSettings.corporate_film_id);
+							if (!this.checkSelectedMovie()){
+								this.noMoviesFound();
+							} 
+							var nearest_billboard = [];
+							$.each(this.otherTheaters, function(theatreIndex, theatre) {
+								this.getMovies(theatre.id, true, function(nearestResponse){
+									nearest_billboard.push(this.orderMovies(nearestResponse, true, theatre));
+								}.bind(this)); 
+							}.bind(this));
+							this.nearestBillboards = nearest_billboard;
+							
+							var more_nearest_billboard = [];
+							$.each(this.moreOtherTheaters, function(theatreIndex, theatre) {
+								this.getMovies(theatre.id, true, function(nearestResponse){
+									more_nearest_billboard.push(this.orderMovies(nearestResponse, true, theatre));
+								}.bind(this)); 
+							}.bind(this));
+							this.moreNearestBillboards = more_nearest_billboard;
+							
+							this.loading = false;
+						 }.bind(this));
+          },
+			 		gotoPurchase: function(session){
+							window.location.href= session.url;
+					},
+          getMovies: function (tag, nearest, cb) {
+               var self = this;
+               var _response = [];
+               var settings = {
+                    "url": self.resolvePath('billboard'),
+                    "method": "GET",
+                    "data": {
+                         "cinema_id": tag
+                    }
+               };
+
+               $.ajax(settings).done(function (response) {
+                    if(response && response.length > 0) {
+												_response = response;
+                    } else if(!nearest){
+                         self.$refs.alertComponent.showError('VB05-01', {
+                              callback_close: function () {
+                                   window.location.href = self.getSiteUrl();
+                              }
+                         });
+                    }
+               }).always(function(jqXHR){
+                    cb(_response);
+               });
+          },
+          getMovie: function(corporate_film_id) {
+               var self = this;
+               $.ajax({
+                    "url": self.resolvePath('getMovie'),
+                    "method": "GET",
+                    "headers": {
+                         "Accept": "application/json"
+                    },
+                    "data": {
+                         "corporate_film_id": corporate_film_id
+                    }
+               }).done(function(response) {
+                    if (!jQuery.isEmptyObject(response)) {
+                         var actors = [];
+                         var directors = [];
+                         $.each(response.Cast, function (castIndex, cast) {
+													if (cast.PersonType === "Director") {
+														directors.push(cast);
+														self.jsonld.director.push({
+															"@type": "Person",
+															"name": `${cast.FirstName} ${cast.LastName}`
+														});
+													} else {
+														actors.push(cast);
+														self.jsonld.actor.push({
+															"@type": "Person",
+															"name": `${cast.FirstName} ${cast.LastName}`
+														});
+													}
+												});
+												self.jsonld.description = response.Synopsis;
+												self.jsonld.name = response.Title;
+												self.jsonld.image = self.selectedMovie.img;
+												response.actors = actors;
+												response.directors = directors;
+												self.selectedMovieMoreInfo = response;
+
+												var eljsonld = document.createElement('script');
+												eljsonld.type = 'application/ld+json';
+												eljsonld.text = JSON.stringify(self.jsonld);
+												document.querySelector('head').appendChild(eljsonld);
+                    }
+               }.bind(this));
+          },
+          getMoviesComingSoon: function () {
+               var self = this;
+               var settings = {
+                    "url": self.resolvePath('releases'),
+                    "method": "GET",
+                    "data": {
+                         "date": self.comingSoonOrder(self)
+                    }
+               };
+
+               $.ajax(settings).done(function (response) {
+                    if(response) {
+                         if (response.value.length > 0){
+                              self.orderComingSoon(self, response.value);
+                         }
+                    } else {
+                         self.$refs.alertComponent.showError('VB05-03', {
+                              callback_close: function () {
+                                   window.location.href = self.getSiteUrl();
+                              }
+                         });
+                    }
+               }).fail(function(jqXHR, textStatus, errorThrown) {
+                    self.$refs.alertComponent.showError('VB05-04', {
+                         callback_close: function () {
+                              window.location.href = self.getSiteUrl();
+                         }
+                    });
+               });
+          },
+          getRestrictionMessages: function(){
+               if(this.selectedMovie && this.selectedMovie.corporate_film_id) {
+                    var self = this;
+                    var settings = {
+                         "url": this.resolvePath('posts', 'modyo2'),
+                         "method": "GET",
+                         "data": {
+                              "category": "calificacion",
+                              "tags": this.selectedMovie.corporate_film_id,
+                              "per_page": 500
+                         }
+                    };
+                    $.ajax(settings).done(function(response) {
+                         try {
+                              if(response.posts && response.posts.length > 0){
+                                   self.restrictionMessages = response.posts;
+                              }
+                         } catch (e) {
+                              console.log("- getRestrictionMessages()");
+                         }
+                    });
+               }
+          },
+          getRestrictionPost: function(){
+               if(this.selectedMovie && this.selectedMovie.corporate_film_id) {
+                    var self = this;
+                    var settings = {
+                         "url": this.resolvePath('posts', 'modyo2'),
+                         "method": "GET",
+                         "data": {
+                              "category": "restriccion",
+                              "tags": this.selectedMovie.corporate_film_id,
+                              "per_page": 500
+                         }
+                    };
+                    $.ajax(settings).done(function(response) {
+                         try {
+                              if(response.posts && response.posts.length > 0){
+                                   self.restrictionPost = response.posts;
+                              }
+                         } catch (e) {
+                              console.log("- getRestrictionMessages()");
+                         }
+                    });
+               }
+          },
+			 		// todo mixin
+          goToPurchase:function (version, session, theatre) {
+               var url = this.getSiteUrl() + '/compra';
+               url += '?tag=' + theatre.id;
+               url += '&movie_id=' + version.film_HOPK;
+               url += '&showtime=' + session.id;
+               url += '&date=' + session.day;
+               url += '&hour=' + session.hour;
+               if(this.createSlug(version.title) != '') {
+                    url += '&pelicula=' + this.createSlug(version.title);
+               }
+               url += '&cine=' + theatre.key;
+               return url;
+          },
+
+          /*** General ***/
+          getParams: function(){
+               var self= this;
+               this.urlSettings.tag = this.getTheatreTag();
+               this.urlSettings.corporate_film_id = this.getSpecificParam("corporate_film_id") || null;
+               this.urlSettings.coming_soon = (this.getSpecificParam("coming_soon") !== null && this.getSpecificParam("coming_soon") !== '' && this.getSpecificParam("coming_soon") == 'true') ? true : false;
+               if (this.urlSettings.corporate_film_id !== null) {
+                    if (this.urlSettings.coming_soon){
+                         this.getMoviesComingSoon();
+                    } else {
+                         this.loadMovies();
+                    }
+               } else {
+								 	this.loading=false;
+                    /*console.log("-getParams() => error - corporate_film_id");
+                    this.$refs.alertComponent.showError('VB05-05', {
+                         callback_close: function () {
+                              window.location.href = self.getSiteUrl();
+                         }
+                    });*/
+               }
+          },
+          orderMovies: function (response, nearest, theatre) {
+               var self = this;
+               var _days = [];
+               $.each(response, function (dayIndex, day) {
+                    $.each(day.movies, function (movieIndex, movie) {
+                         if(movie.corporate_film_id == self.urlSettings.corporate_film_id){
+                              movie.img = self.getImgCdnPath(movie.corporate_film_id);
+                              movie.imgLarge = self.getImgCdnPathLarge(movie.corporate_film_id);
+                              movie.youtube = 'https://www.youtube.com/embed/' + self.getYoutubeId(movie.trailer_url);
+                              var _date = (movie.opening_date).replace('T00:00:00', '');
+                              movie.openingDateFormatted = self.convertDate(_date, 'YYYY-MM-DD', 'DD MMM YYYY', false ).toLowerCase();
+                              movie.youtubeUrlMaxDefault = self.getYoutubeUrl(movie.trailer_url,'maxresdefault');
+                              movie.youtubeUrlSdDefault = self.getYoutubeUrl(movie.trailer_url,'sddefault');
+                              movie.youtubeUrldDefault = self.getYoutubeUrl(movie.trailer_url,'default');
+                              $.each(movie.movie_versions, function (versionIndex, version) {
+                                   movie.movie_versions[versionIndex].nearest = nearest;
+                                   movie.movie_versions[versionIndex].theatre = theatre;
+                                   $.each(version.sessions, function (sessionIndex, session) {
+																		 		
+                                        movie.movie_versions[versionIndex].sessions[sessionIndex].formated_hour = self.formatHour2(session.hour);
+                                        movie.movie_versions[versionIndex].sessions[sessionIndex].url = self.goToPurchase(version, session, theatre);
+                                        movie.movie_versions[versionIndex].sessions[sessionIndex].tags =  self.getMovieTagsByVersion(movie.movie_versions);
+                                        movie.movie_versions[versionIndex].sessions[sessionIndex].nearest = nearest;
+                                        movie.movie_versions[versionIndex].sessions[sessionIndex].theatre = theatre;
+                                   });
+                              });
+													 		
+													 	
+                              if (!nearest){
+                                   self.selectedMovie = movie;
+                              }else if (self.selectedMovie == undefined && nearest) {
+								// if movie no was selected before 
+								// selection from nearest...
+								self.selectedMovie = movie;
+						}
+													 
+                              day.movies = [movie];
+                              day.movie_versions = movie.movie_versions;
+                              day.dateDay = self.convertDate(day.date, 'YYYY-MM-DD', 'ddd', false);
+                              day.dateFormatted = self.convertDate(day.date, 'YYYY-MM-DD', 'DD MMM YYYY', false );
+                              _days.push(day);
+                         }
+                    });
+               });
+               return _days;
+          },
+          tagClass: function (tag) {
+               tag = tag.toLowerCase();
+               tag = (tag === "pr" && this.urlSettings.tag == GLOBAL_CONFIG.tagAricaTheatre) ? "pr-palco" : tag;
+               return 'tag-' + tag;
+          },
+          tagClassMoreInfo: function (tag) {
+						// todo mixin
+               tag = (tag === "PR" && this.urlSettings.tag == GLOBAL_CONFIG.tagAricaTheatre) ? "pr-palco" : tag;
+               return 'tag-' + tag;
+          },
+          getYoutubeUrl: function (trailerUrl, size) {
+               return 'https://img.youtube.com/vi/' + this.getYoutubeId(trailerUrl) + '/' + size + '.jpg';
+          },
+          checkYoutubeImg: function (url, cb) {
+               var img = new Image();
+               img.src = url;
+               img.onload = function() {
+                    if(this.width < 300 || this.height < 400){
+                         cb(null);
+                    } else {
+                         cb(url);
+                    }
+               };
+               img.onerror = function() {
+                    cb(null);
+               };
+          },
+          orderComingSoon: function (self, response) {
+               $.each(response, function (index, cSoon) {
+                    if(cSoon.CorporateFilmId == self.urlSettings.corporate_film_id) {
+                         cSoon.title = cSoon.Title.split('(')[0];
+                         cSoon.trailer_url = cSoon.TrailerUrl;
+                         cSoon.youtube = 'https://www.youtube.com/embed/' + self.getYoutubeId(cSoon.TrailerUrl);
+                         var _date = (cSoon.OpeningDate).replace('T00:00:00', '');
+                         cSoon.openingDateFormatted = self.convertDate(_date, 'YYYY-MM-DD', 'DD MMM YYYY', false ).toUpperCase();
+                         cSoon.corporate_film_id = cSoon.CorporateFilmId;
+                         cSoon.runtime = cSoon.RunTime;
+                         cSoon.synopsis = cSoon.Synopsis;
+                         cSoon.opening_date = cSoon.OpeningDate;
+                         cSoon.rating = cSoon.Rating;
+                         cSoon.img = self.getImgCdnPath(cSoon.CorporateFilmId);
+                         self.selectedMovie = cSoon;
+                         self.loading = false;
+                    }
+               });
+               if (!self.checkSelectedMovie()){
+                    self.noMoviesFound();
+               }
+          },
+          changeDay: function (day) {
+						   this.closeSessionShow();
+               $('.box-movie-format').addClass('movie-box-animation');
+               setTimeout(function(){
+                    this.selectedDay = day;
+                    $('.box-movie-format').removeClass('movie-box-animation');
+               }.bind(this), 300);
+          },
+          changeDayNoMovie: function (day) {
+						$('.box-movie-format').addClass('movie-box-animation');
+
+						setTimeout(function(){
+							this.selectedDayNoMovie = day;
+							$('.box-movie-format').removeClass('movie-box-animation');
+						}.bind(this), 300);
+          },
+					noMoviesFound: function () {
+						console.log("no se encontró la película seleccionada");
+						this.no_movie = true;
+					}, 
+          selectNearest: function() {
+               var availableThetres = [];
+               try {
+                    var date = this.selectedDay.date;
+                    var _movieVersions = [];
+                    $.each(this.nearestBillboards, function (nearestBillboardIndex, nearestBillboard) {
+                         $.each(nearestBillboard, function (dayIndex, day) {
+                              if (day.date === date) {
+                                   $.each(day.movie_versions, function (versionIndex, version) {
+                                        version.theatre_first = false;
+                                        if(availableThetres.indexOf(version.theatre.key) === -1){
+                                             availableThetres.push(version.theatre.key);
+                                             version.theatre_first = true;
+                                        }
+                                        _movieVersions.push(version);
+                                   });
+                              }
+                         });
+                    });
+                    this.selectedNearestBillboard =  _movieVersions;
+               } catch (e) {
+                    console.log("-movie => selectNearest()");
+               }
+          },
+			 selectNearestNoMovie: function() {
+					 var availableThetres = [];
+					 try {
+						 var date = this.selectedDayNoMovie.date;
+						 var _movieVersions = [];
+						 $.each(this.nearestBillboards, function (nearestBillboardIndex, nearestBillboard) {
+							 $.each(nearestBillboard, function (dayIndex, day) {
+								 if (day.date === date) {
+									 $.each(day.movie_versions, function (versionIndex, version) {
+										 version.theatre_first = false;
+										 if(availableThetres.indexOf(version.theatre.key) === -1){
+											 availableThetres.push(version.theatre.key);
+											 version.theatre_first = true;
+										 }
+										 _movieVersions.push(version);
+									 });
+								 }
+							 });
+						 });
+						 this.selectedNearestBillboard =  _movieVersions;
+					 } catch (e) {
+						 console.log("-movie => selectNearestNoMovie()");
+					 }
+          },
+          /*** utilities ***/
+          checkSelectedMovie: function () {
+               return (this.selectedMovie != null);
+          },
+          checkComingSoon: function () {
+               return (this.urlSettings.coming_soon);
+          },
+          checkDayAndSelectedDay: function (day) {
+               return (day === this.selectedDay);
+          },
+			 	 	checkDayAndSelectedDayNoMovie: function (day) {
+               return (day === this.selectedDayNoMovie);
+          },
+          selectSession: function (session, title) {
+               session.title = title;
+               this.selectedSession = session;
+          },
+          checkSelectedSession: function () {
+               return (this.selectedSession) ? 'active' : '';
+          },
+          closeSessionShow: function () {
+               this.selectedSession = undefined;
+          },
+          checkSelectedSessionActive: function (session) {
+               return (this.selectedSession === session) ?  'active' : '';
+          },
+          openModal: function () {
+               this.modalSelected = 'youtube';
+               this.showIframe = true;
+          },
+          openModalRestriction: function() {
+               this.modalSelected = 'restriction';
+          },
+          closeModal: function () {
+               this.showIframe = false;
+          },
+          checkNearestSessions: function (version) {
+               return (version.nearest) ? "nearest" : "";
+          },
+          checkSelectedNearestBillboard: function () {
+               return (this.selectedNearestBillboard && this.selectedNearestBillboard.length > 0);
+          },
+          nearestFirstTheatreClass: function (version) {
+               try {
+                    return (version.theatre_first) ? "nearest-first-theatre" : "";
+               } catch (e) {
+                    return "";
+               }
+          }
+     }
+});
